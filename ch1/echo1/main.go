@@ -5,6 +5,7 @@
 //!+
 
 // Echo1 prints its command-line arguments.
+// Exercise 1.1: Modified to include Args[0] as part of the output.
 package main
 
 import (
@@ -14,7 +15,7 @@ import (
 
 func main() {
 	var s, sep string
-	for i := 1; i < len(os.Args); i++ {
+	for i := 0; i < len(os.Args); i++ {
 		s += sep + os.Args[i]
 		sep = " "
 	}
