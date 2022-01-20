@@ -5,6 +5,7 @@
 //!+
 
 // Echo2 prints its command-line arguments.
+// Exercise 1.2: Modified to print index along with argument.
 package main
 
 import (
@@ -13,12 +14,9 @@ import (
 )
 
 func main() {
-	s, sep := "", ""
-	for _, arg := range os.Args[1:] {
-		s += sep + arg
-		sep = " "
+	for ind, arg := range os.Args[1:] {
+		fmt.Println(ind, arg)
 	}
-	fmt.Println(s)
 }
 
 //!-
