@@ -7,6 +7,7 @@
 // Fetch prints the content found at each specified URL.
 // Exercise 1.7: Modified to use io.Copy instead of ioutil.ReadAll.
 // Exercise 1.8: Modified to add "http://" prefix if missing.
+// Exercise 1.9: Modified to add HTTP Response Status Code.
 package main
 
 import (
@@ -27,6 +28,7 @@ func main() {
 			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
 			os.Exit(1)
 		}
+		fmt.Printf("Response Status: %s\n", resp.Status)
 		_, err = io.Copy(os.Stdout, resp.Body)
 		resp.Body.Close()
 		if err != nil {
