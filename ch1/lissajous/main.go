@@ -6,7 +6,7 @@
 //!+main
 
 // Lissajous generates GIF animations of random Lissajous figures.
-// Exercise 1.5: Modified color palette to green on black.
+// Exercise 1.6: Modified to produce images with random primary colors as foreground.
 package main
 
 import (
@@ -28,13 +28,8 @@ import (
 )
 
 //!+main
-
-var palette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
-
-const (
-	blackIndex = 0 // first color in palette
-	greenIndex = 1 // next color in palette
-)
+var palette = []color.Color{color.Black, color.RGBA{0xff, 0x00, 0x00, 0xff}, color.RGBA{0x00, 0xff, 0x00, 0xff}, color.RGBA{0x00, 0x00, 0xff, 0xff}}
+var colorIndex uint8  // next color in palette
 
 func main() {
 	//!-main
@@ -42,6 +37,7 @@ func main() {
 	// the pseudo-random number generator using the current time.
 	// Thanks to Randall McPherson for pointing out the omission.
 	rand.Seed(time.Now().UTC().UnixNano())
+	colorIndex = uint8(rand.Intn(3)) + 1
 
 	if len(os.Args) > 1 && os.Args[1] == "web" {
 		//!+http
@@ -75,7 +71,7 @@ func lissajous(out io.Writer) {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
 			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5),
-				greenIndex)
+				colorIndex)
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
